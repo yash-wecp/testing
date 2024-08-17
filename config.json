@@ -1,0 +1,196 @@
+{
+  "environment": [
+    {
+      "base": "custom",
+      "prebuild-location": "./java-prebuild.sh"
+    },
+    {
+      "base": "custom",
+      "prebuild-location": "./1-prebuild-global.sh"
+    },
+    {
+      "base": "custom",
+      "prebuild-location": "2-prebuild-angular.sh",
+      "test": {
+        "location": ".",
+        "command": "cd client && rm -rf output-frontend.xml && npm run test",
+        "xml_output_file": "client/output-frontend.xml",
+        "total_testcases": 18,
+        "test_file_or_folder": "client/src/tests"
+      }
+    },
+    {
+      "base": "custom",
+      "prebuild-location": "3-prebuild-java.sh",
+      "test": {
+        "location": ".",
+        "command": "cd server && rm -rf target/surefire-reports/* && ./mvnw clean test surefire-report:report -Dspring-boot.run.jvmArguments=\"-Xmx750m\" ",
+        "xml_output_file": "server/target/surefire-reports/TEST-com.wecp.event_management_system.EventManagementSystemApplicationTests.xml",
+        "total_testcases": 13,
+        "test_file_or_folder": "server/src/test"
+      }
+    },
+    {
+      "base": "custom",
+      "prebuild-location": "4-prebuild-mysql.sh"
+    },
+    {
+      "base": "custom",
+      "prebuild-location": "5-prebuild-extensions.sh"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "Run Angular App",
+      "command": "cd client && npm run start",
+      "type": "shell"
+    },
+    {
+      "label": "Run Java App",
+      "command": "cd server && ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments=\"-Xmx750m\" -DskipTests",
+      "type": "shell"
+    },
+    {
+      "label": "Submit App",
+      "command": "./resolv.sh",
+      "type": "shell"
+    }
+  ],
+  "solutions": {
+    "SecurityConfig.java": "./server/src/main/java/com/wecp/event_management_system/config/SecurityConfig.java",
+    "ClientController.java": "./server/src/main/java/com/wecp/event_management_system/controllers/ClientController.java",
+    "PlannerController.java": "./server/src/main/java/com/wecp/event_management_system/controllers/PlannerController.java",
+    "RegisterAndLoginController.java": "./server/src/main/java/com/wecp/event_management_system/controllers/RegisterAndLoginController.java",
+    "StaffController.java": "./server/src/main/java/com/wecp/event_management_system/controllers/StaffController.java",
+    "Client.java": "./server/src/main/java/com/wecp/event_management_system/entities/Client.java",
+    "Event.java": "./server/src/main/java/com/wecp/event_management_system/entities/Event.java",
+    "EventPlanner.java": "./server/src/main/java/com/wecp/event_management_system/entities/EventPlanner.java",
+    "Staff.java": "./server/src/main/java/com/wecp/event_management_system/entities/Staff.java",
+    "Task.java": "./server/src/main/java/com/wecp/event_management_system/entities/Task.java",
+    "User.java": "./server/src/main/java/com/wecp/event_management_system/entities/User.java",
+    "JwtRequestFilter.java": "./server/src/main/java/com/wecp/event_management_system/jwt/JwtRequestFilter.java",
+    "JwtUtil.java": "./server/src/main/java/com/wecp/event_management_system/jwt/JwtUtil.java",
+    "ClientRepository.java": "./server/src/main/java/com/wecp/event_management_system/repositories/ClientRepository.java",
+    "EventPlannerRepository.java": "./server/src/main/java/com/wecp/event_management_system/repositories/EventPlannerRepository.java",
+    "EventRepository.java": "./server/src/main/java/com/wecp/event_management_system/repositories/EventRepository.java",
+    "StaffRepository.java": "./server/src/main/java/com/wecp/event_management_system/repositories/StaffRepository.java",
+    "TaskRepository.java": "./server/src/main/java/com/wecp/event_management_system/repositories/TaskRepository.java",
+    "UserRepository.java": "./server/src/main/java/com/wecp/event_management_system/repositories/UserRepository.java",
+    "EventService.java": "./server/src/main/java/com/wecp/event_management_system/services/EventService.java",
+    "TaskService.java": "./server/src/main/java/com/wecp/event_management_system/services/TaskService.java",
+    "UserService.java": "./server/src/main/java/com/wecp/event_management_system/services/UserService.java",
+    "client-dashboard.component.ts": "./client/src/app/components/client-dashboard/client-dashboard.component.ts",
+    "client-dashboard.component.html": "./client/src/app/components/client-dashboard/client-dashboard.component.html",
+    "client-dashboard.component.css": "./client/src/app/components/client-dashboard/client-dashboard.component.css",
+    "login.component.ts": "client/src/app/components/login/login.component.ts",
+    "login.component.html": "client/src/app/components/login/login.component.html",
+    "login.component.css": "client/src/app/components/login/login.component.css",
+    "staff-dashboard.component.ts": "client/src/app/components/staff-dashboard/staff-dashboard.component.ts",
+    "staff-dashboard.component.html": "client/src/app/components/staff-dashboard/staff-dashboard.component.html",
+    "staff-dashboard.component.css": "client/src/app/components/staff-dashboard/staff-dashboard.component.css",
+    "planner-dashboard.component.ts": "client/src/app/components/planner-dashboard/planner-dashboard.component.ts",
+    "planner-dashboard.component.html": "client/src/app/components/planner-dashboard/planner-dashboard.component.html",
+    "planner-dashboard.component.css": "client/src/app/components/planner-dashboard/planner-dashboard.component.css",
+    "register.component.ts": "client/src/app/components/register/register.component.ts",
+    "register.component.html": "client/src/app/components/register/register.component.html",
+    "register.component.css": "client/src/app/components/register/register.component.css",
+    "auth.guard.ts": "client/src/app/guards/auth.guard.ts",
+    "auth.interceptor.ts": "client/src/app/services/auth.interceptor.ts",
+    "auth.service.ts": "client/src/app/services/auth.service.ts",
+    "client.service.ts": "client/src/app/services/client.service.ts",
+    "planner.service.ts": "client/src/app/services/planner.service.ts",
+    "staff.service.ts": "client/src/app/services/staff.service.ts"
+  },
+  "submission": ". -x \".vscode\" \"client/.angular/*\" \"client/node_modules/*\" \"client/src/test/*\" \"server/target/*\" \"server/src/test/*\" \"initialize-github.sh\"",
+  "testcases": {
+    
+    
+      "Components and Services Tests ClientDashboardComponent should create": "Components and Services Tests ClientDashboardComponent should create",
+      "Components and Services Tests ClientDashboardComponent should fetch events on init": "Components and Services Tests ClientDashboardComponent should fetch events on init",
+      "Components and Services Tests ClientDashboardComponent should provide feedback": "Components and Services Tests ClientDashboardComponent should provide feedback",
+      "Components and Services Tests PlannerDashboardComponent should create": "Components and Services Tests PlannerDashboardComponent should create",
+      "Components and Services Tests PlannerDashboardComponent should fetch events and tasks on init": "Components and Services Tests PlannerDashboardComponent should fetch events and tasks on init",
+      "Components and Services Tests PlannerDashboardComponent should create an event": "Components and Services Tests PlannerDashboardComponent should create an event",
+      "Components and Services Tests PlannerDashboardComponent should update an event": "Components and Services Tests PlannerDashboardComponent should update an event",
+      "Components and Services Tests PlannerDashboardComponent should create a task": "Components and Services Tests PlannerDashboardComponent should create a task",
+      "Components and Services Tests RegisterComponent should create": "Components and Services Tests RegisterComponent should create",
+      "Components and Services Tests RegisterComponent should register a new user": "Components and Services Tests RegisterComponent should register a new user",
+      "Components and Services Tests StaffDashboardComponent should create": "Components and Services Tests StaffDashboardComponent should create",
+      "Components and Services Tests StaffDashboardComponent should fetch tasks on init": "Components and Services Tests StaffDashboardComponent should fetch tasks on init",
+      "Components and Services Tests StaffDashboardComponent should update task status": "Components and Services Tests StaffDashboardComponent should update task status",
+      "Components and Services Tests AuthService should register a new user": "Components and Services Tests AuthService should register a new user",
+      "Components and Services Tests AuthService should login and return a token": "Components and Services Tests AuthService should login and return a token",
+      "Components and Services Tests AuthService should check if token is expired": "Components and Services Tests AuthService should check if token is expired",
+      "Components and Services Tests AuthGuard should allow activation if token is not expired": "Components and Services Tests AuthGuard should allow activation if token is not expired",
+      "Components and Services Tests AuthGuard should deny activation and redirect to login if token is expired": "Components and Services Tests AuthGuard should deny activation and redirect to login if token is expired",
+      "testUpdateTaskStatus": "testUpdateTaskStatus",
+      "testUpdateEvent": "testUpdateEvent",
+      "testCreateEvent": "testCreateEvent",
+      "testGetAllTasks": "testGetAllTasks",
+      "testLoginUser": "testLoginUser",
+      "testRegisterUser": "testRegisterUser",
+      "testUpdateFeedback": "testUpdateFeedback",
+      "testLoginWithWrongUsernameOrPassword": "testLoginWithWrongUsernameOrPassword",
+      "testCreateTask": "testCreateTask",
+      "testAssignTaskToStaff": "testAssignTaskToStaff",
+      "testClientShouldGetAllEvents": "testClientShouldGetAllEvents",
+      "testGetEventsByPlanner": "testGetEventsByPlanner",
+      "testStaffGetAssignedTasks": "testStaffGetAssignedTasks"
+    
+    
+   
+   
+  },
+  "wecp-projects-extention-tabs": [
+    {
+      "name": "Run Angular App",
+      "type": "task",
+      "props": {
+        "name": "Run Angular App"
+      }
+    },
+    {
+      "name": "Open browser preview",
+      "type": "simple-browser",
+      "props": {
+        "port": "3000",
+        "relativeUrl": "/"
+      }
+    },
+    {
+      "name": "Show testing url for backend server",
+      "type": "exec",
+      "props": {
+        "command": "echo \"$domain_5000\""
+      }
+    },
+    {
+      "name": "Run Java App",
+      "type": "task",
+      "props": {
+        "name": "Run Java App"
+      }
+    },
+    {
+      "name": "Initialize github",
+      "type": "exec",
+      "props": {
+        "command": "bash initialize-github.sh"
+      }
+    },
+    {
+      "name": "Open mysql bash session",
+      "type": "exec",
+      "props": {
+        "command": "mysql -u root -p'hellowecp' -h localhost EventPlannerDB"
+      }
+    },
+    {
+      "name": "Test & Submit app",
+      "type": "task",
+      "props": {
+        "name": "Submit App"
+      }
+    }
+  ]
+}
