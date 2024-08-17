@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.wecp.event_management_system.controllers;
 
 import com.wecp.event_management_system.entities.Event;
@@ -28,3 +29,7 @@ public class ClientController {
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 }
+=======
+// get all events and return them with status code 200 ok
+// update the feedback of the event with the given eventId and return the updated event with status code 200 ok
+>>>>>>> c0e47323986c87624993559d6fb5d6db69d8e3a0
